@@ -22,16 +22,12 @@ extension URLSession {
         func makeResult(responseData: Data?, urlResponse: URLResponse?,
                         responseError: Error?) -> Result<U, ParseError> {
 
-            if let data = responseData,  let str = String(data: data, encoding: .utf8) {
-                print("makeResult \(str)")
-            }
-
             if let responseData = responseData {
                 do {
                     let mapped = try mapper(responseData)
-                    print("mapped \(mapped)")
                     return try .success(mapper(responseData))
                 } catch {
+
                     if let str = String(data: responseData, encoding: .utf8) {
                         print("failed for \(str)")
                     }
