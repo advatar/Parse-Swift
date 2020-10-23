@@ -91,7 +91,7 @@ internal extension API {
                 }
             }
             urlRequest.httpMethod = method.rawValue
-
+            print("urlRequest \(urlRequest)")
             URLSession.shared.dataTask(with: urlRequest, callbackQueue: callbackQueue, mapper: mapper) { result in
                 switch result {
 

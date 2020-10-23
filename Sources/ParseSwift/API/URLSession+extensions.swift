@@ -18,7 +18,7 @@ extension URLSession {
         completion: @escaping(Result<U, ParseError>) -> Void
     ) {
         print("request \(request)")
-        
+
         func makeResult(responseData: Data?, urlResponse: URLResponse?,
                         responseError: Error?) -> Result<U, ParseError> {
 
@@ -28,6 +28,9 @@ extension URLSession {
 
             if let responseData = responseData {
                 do {
+
+                    let mapped = mapper(responseData)
+                    print("mapped \(mapped)")
                     return try .success(mapper(responseData))
                 } catch {
                     let parseError = try? ParseCoding.jsonDecoder().decode(ParseError.self, from: responseData)

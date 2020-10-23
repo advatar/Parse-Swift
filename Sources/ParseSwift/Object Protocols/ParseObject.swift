@@ -165,6 +165,7 @@ extension ParseObject {
      - throws: An Error of `ParseError` type.
     */
     public func fetch(options: API.Options = []) throws -> Self {
+        print("fetch1")
         let result: Self = try fetchCommand().execute(options: options)
         try? Self.updateKeychainIfNeeded([result])
         return result
@@ -184,6 +185,7 @@ extension ParseObject {
         callbackQueue: DispatchQueue = .main,
         completion: @escaping (Result<Self, ParseError>) -> Void
     ) {
+        print("fetch2")
          do {
             try fetchCommand().executeAsync(options: options, callbackQueue: callbackQueue) { result in
                 if case .success(let foundResult) = result {
@@ -238,6 +240,7 @@ extension ParseObject {
      - returns: Returns saved `ParseObject`.
     */
     public func save(options: API.Options = []) throws -> Self {
+        print("save1")
         var childObjects: [NSDictionary: PointerType]?
         var error: ParseError?
         let group = DispatchGroup()
@@ -276,6 +279,7 @@ extension ParseObject {
         callbackQueue: DispatchQueue = .main,
         completion: @escaping (Result<Self, ParseError>) -> Void
     ) {
+        print("save2")
         self.ensureDeepSave(options: options) { result in
             switch result {
 
