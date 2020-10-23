@@ -28,11 +28,13 @@ extension URLSession {
 
             if let responseData = responseData {
                 do {
-                    print("mapper \(mapper)")
                     let mapped = try mapper(responseData)
                     print("mapped \(mapped)")
                     return try .success(mapper(responseData))
                 } catch {
+                    if let str = String(responseData: data, encoding: .utf8) {
+                        print("failed for \(str)")
+                    }
                     let parseError = try? ParseCoding.jsonDecoder().decode(ParseError.self, from: responseData)
                     return .failure(parseError ?? ParseError(code: .unknownError, message: "cannot decode error"))
                 }
