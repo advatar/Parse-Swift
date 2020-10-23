@@ -17,8 +17,15 @@ extension URLSession {
         mapper: @escaping (Data) throws -> U,
         completion: @escaping(Result<U, ParseError>) -> Void
     ) {
+        print("request \(request)")
+        
         func makeResult(responseData: Data?, urlResponse: URLResponse?,
                         responseError: Error?) -> Result<U, ParseError> {
+
+            if let data = responseData,  let str = String(data: data, encoding: .utf8) {
+                print("makeResult \(str)")
+            }
+
             if let responseData = responseData {
                 do {
                     return try .success(mapper(responseData))
