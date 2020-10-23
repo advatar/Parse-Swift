@@ -32,7 +32,7 @@ extension URLSession {
                     print("mapped \(mapped)")
                     return try .success(mapper(responseData))
                 } catch {
-                    if let str = String(responseData: responseData, encoding: .utf8) {
+                    if let str = String(data: responseData, encoding: .utf8) {
                         print("failed for \(str)")
                     }
                     let parseError = try? ParseCoding.jsonDecoder().decode(ParseError.self, from: responseData)
