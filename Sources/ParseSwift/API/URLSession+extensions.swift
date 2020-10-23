@@ -29,6 +29,7 @@ extension URLSession {
             if let responseData = responseData {
                 do {
 
+                    print("mapper \(mapper)")
                     let mapped = mapper(responseData)
                     print("mapped \(mapped)")
                     return try .success(mapper(responseData))
